@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+    <style>
+        body {
+            background-image: url("{% static 'images/back1.jpg' %}"); /* Replace with your background image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff; /* White text for contrast */
+            margin: 30px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for text */
+        }
+
+        .timeslot-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .timeslot-card {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for a softer look */
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            text-align: center;
+            width: 270px;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .timeslot-card:hover {
+            transform: translateY(-10px) scale(1.05); /* Lift and enlarge card on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .timeslot-card p {
+            margin: 15px 0;
+            color: #444;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .timeslot-card a {
+            display: inline-block;
+            padding: 12px 20px;
+            background-image: linear-gradient(to right, #28a745, #218838);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .timeslot-card a:hover {
+            background-image: linear-gradient(to right, #218838, #28a745);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px); /* Slight raise effect */
+        }
+    </style>
+
+    <h2>Select a Time Slot</h2>
+    <div class="timeslot-container">
+        {% for timeslot in timeslots %}
+        <div class="timeslot-card">
+            <p><strong>Date:</strong> {{ timeslot.date }}</p>
+            <p><strong>Time:</strong> {{ timeslot.time }}</p>
+            <a href="{% url 'payment' timeslot.id %}">Choose Time</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

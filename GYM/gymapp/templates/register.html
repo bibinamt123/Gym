@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .register-form {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1s ease;
+        }
+
+        .register-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        .register-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .register-form label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .register-form input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .register-form input:focus {
+            border-color: #6a11cb;
+            outline: none;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.3);
+        }
+
+        .register-form button {
+            padding: 12px;
+            background-image: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-form button:hover {
+            background-image: linear-gradient(to right, #2575fc, #6a11cb);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-form a {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #6a11cb;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .register-form a:hover {
+            color: #2575fc;
+            text-decoration: underline;
+        }
+
+        .errorlist {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-form">
+        <h2>Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }} 
+                    {{ field }} 
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Register</button>
+        </form>
+        <a href="{% url 'login' %}">Login here</a>
+    </div>
+</body>
+</html>

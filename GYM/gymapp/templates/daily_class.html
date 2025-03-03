@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Main container style */
+    .class-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 60vh;
+        background-color: #ffffff;
+        padding: 20px;
+        margin-top: 0px;
+    }
+
+    /* Class card */
+    .class-card {
+        background: linear-gradient(135deg, #c7bd33 0%, #26b92d 100%);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        transform: perspective(500px) rotateX(0deg);
+        animation: popIn 0.5s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Floating elements inside class card */
+    .class-card::before,
+    .class-card::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.2;
+        animation: float 10s ease-in-out infinite;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .class-card::before {
+        width: 200px;
+        height: 200px;
+        top: -80px;
+        left: -80px;
+    }
+
+    .class-card::after {
+        width: 150px;
+        height: 150px;
+        bottom: -50px;
+        right: -50px;
+    }
+
+    /* Animations */
+    @keyframes popIn {
+        0% {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(20px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    /* Class card hover effect */
+    .class-card:hover {
+        transform: perspective(500px) rotateX(5deg);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        transition: all 0.4s ease-in-out;
+    }
+
+    /* Class title */
+    .class-card h2 {
+        font-size: 2em;
+        color: #fff;
+        margin-bottom: 20px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        animation: fadeInUp 1s ease-in-out;
+    }
+
+    /* Info paragraphs */
+    .class-card p {
+        margin: 15px 0;
+        font-size: 1.2em;
+        color: #fff;
+        animation: fadeInUp 1.2s ease-in-out;
+    }
+
+    /* Labels for trainer and date */
+    .class-card span {
+        font-weight: bold;
+        color: #ffeb3b;
+        font-size: 1.1em;
+        animation: fadeInUp 1.4s ease-in-out;
+    }
+
+    /* Button for workout video link */
+    .watch-button {
+        color: #fff;
+        background-color: #6200ea;
+        padding: 12px 25px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
+        animation: bounceIn 1.5s ease-in-out;
+    }
+
+    .watch-button:hover {
+        background-color: #05b147;
+        animation: pulse 1s ease-in-out infinite;
+    }
+
+    /* No class scheduled message */
+    .no-class-message {
+        text-align: center;
+    }
+
+    .no-class-message p {
+        font-size: 1.4em;
+        color: #a31414;
+        animation: fadeInDown 0.8s ease-in-out;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 12px 25px;
+        background-color: #b9738b;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        animation: shake 2s ease-in-out infinite;
+    }
+
+    .back-button:hover {
+        background-color: #99576d;
+    }
+
+    /* Animations for buttons */
+    @keyframes bounceIn {
+        0% {
+            transform: scale(0.95);
+        }
+        70% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(98, 0, 234, 0.4);
+        }
+        100% {
+            box-shadow: 0 0 0 20px rgba(98, 0, 234, 0);
+        }
+    }
+
+    @keyframes shake {
+        0%, 100% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(-5px);
+        }
+        50% {
+            transform: translateX(5px);
+        }
+        75% {
+            transform: translateX(-5px);
+        }
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="class-container">
+    {% if daily_class %}
+        <div class="class-card">
+            <h2>Today's Class: {{ daily_class.workout_type }}</h2>
+            <div>
+                <p><span>Trainer:</span> {{ daily_class.trainer.name }}</p>
+                <p><span>Date:</span> {{ daily_class.date }}</p>
+                <p><span>Workout Video:</span> 
+                    <a href="{{ daily_class.video_url }}" target="_blank" class="watch-button">Watch Here</a>
+                </p>
+            </div>
+        </div>
+    {% else %}
+        <div class="no-class-message">
+            <p>No class scheduled for today.</p>
+            <a href="{% url 'home' %}" class="back-button">Back to Home</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

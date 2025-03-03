@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    /* General Styling */
+    body {
+        background-color: #f3f4f6;
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        scroll-behavior: smooth;
+        margin: 0;
+    }
+
+    h2 {
+        text-align: center;
+        color: #4a4a4a;
+        margin-top: 40px;
+        font-size: 2.5em;
+        font-weight: 700;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    /* Carousel Styling */
+    .carousel-inner {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel-caption h5 {
+        font-size: 2em;
+        font-weight: 600;
+    }
+
+    .carousel-caption p {
+        font-size: 1.2em;
+    }
+
+    /* Section Styling */
+    section {
+        padding: 60px 20px;
+        margin: 20px 0;
+    }
+
+    .services, .why-choose-us, .testimonials, .gallery, .stats {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+    }
+
+    .services .col-md-4, .why-choose-us .col-md-6, .testimonials .col-md-6 {
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .services .col-md-4:hover, .why-choose-us .col-md-6:hover, .testimonials .col-md-6:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .services img, .why-choose-us img, .testimonials img {
+        border-radius: 8px;
+        margin-bottom: 15px;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Button Styles */
+    .btn-custom {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff6b6b;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #ff4d4d;
+    }
+
+    /* Why Choose Us Section */
+    .why-choose-us {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+        background-color: #f7f9fc;
+        padding-top: 20px;
+    }
+
+    .testimonials h2 {
+        color: #343a40;
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+
+    .testimonial-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .testimonial-img:hover {
+        transform: scale(1.1);
+    }
+
+    .testimonials p {
+        font-style: italic;
+        color: #555;
+    }
+
+    /* Stats Section */
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        background-color: #fafafa;
+    }
+
+    .stat-item h3 {
+        font-size: 1.2em;
+        color: #4a4a4a;
+    }
+
+    .stat-item span {
+        font-size: 2em;
+        color: #ff6b6b;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #4a4a4a;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    footer p {
+        margin: 0;
+    }
+</style>
+
+<!-- Carousel Section -->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+  <div class="carousel-inner">
+      <div class="carousel-item active">
+          <img src="{% static 'images/back1.jpg' %}" class="d-block w-100" alt="Gym" style="height: 800px;">
+          <div class="carousel-caption d-none d-md-block">
+              <h5>Welcome to Our Gym</h5>
+              <p>Transform your body, mind, and life.</p>
+          </div>
+      </div>
+      <div class="carousel-item">
+          <img src="{% static 'images/gym1.jpg' %}" class="d-block w-100" alt="Classes" style="height: 800px;">
+          <div class="carousel-caption d-none d-md-block">
+              <h5>Join Our Group Classes</h5>
+              <p>Experience fun and engaging workouts in a community setting.</p>
+          </div>
+      </div>
+      <div class="carousel-item">
+          <img src="{% static 'images/gym2.jpg' %}" class="d-block w-100" alt="Nutrition" style="height: 800px;">
+          <div class="carousel-caption d-none d-md-block">
+              <h5>Nutrition Guidance</h5>
+              <p>Get the best nutrition advice from certified experts.</p>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- Services Section -->
+<section class="services">
+    <h2>Our Services</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{% static 'images/ptrainer.jpg' %}" alt="Personal Training">
+            <h3>Personal Training</h3>
+            <p>Get personalized training plans tailored to your fitness goals.</p>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/yoga.jpg' %}" alt="Yoga">
+            <h3>Yoga</h3>
+            <p>Join our group classes for a fun and motivating experience.</p>
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/nutrition.jpg' %}" alt="Nutrition Guidance">
+            <h3>Nutrition Guidance</h3>
+            <p>Receive expert advice on nutrition to complement your training.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us">
+    <h2>Why Choose Us</h2>
+    <div class="row">
+        <div class="col-md-6" style="font-weight: 700;">
+            <h3>Expert Trainers</h3>
+            <p>Our gym is more than just a place to work out; it’s a community of individuals dedicated to achieving their personal fitness goals. With state-of-the-art equipment, a variety of group classes, and expert trainers ready to guide you, we provide everything you need to transform your body and mind. Whether you’re a beginner or a seasoned athlete, our gym offers personalized programs to fit every fitness level. Join us and start your journey toward a healthier, stronger you!</p>
+            <p>At FITNESS CLUB, we are dedicated to empowering our members to achieve their fitness goals in a welcoming and supportive environment. Our experienced trainers provide personalized guidance tailored to your unique needs, ensuring you stay motivated and on track. We offer a diverse range of classes and state-of-the-art equipment to accommodate all fitness levels, from beginners to advanced athletes. With our flexible membership options and commitment to community wellness, we foster a positive atmosphere that inspires growth and transformation. Join us today and become part of a thriving community focused on health, strength, and holistic well-being!</p>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/banner5.jpg' %}" alt="Why Choose Us">
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <img src="{% static 'images/gym2.jpg' %}" class="testimonial-img" alt="Client 1">
+            <p>"I've achieved amazing results thanks to the personal training sessions. Highly recommend!"</p>
+            <p><strong>- John Doe</strong></p>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="{% static 'images/gym1.jpg' %}" class="testimonial-img" alt="Client 2">
+            <p>"The group classes are so much fun and motivating. I look forward to every session."</p>
+            <p><strong>- Jane Smith</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="gallery">
+    <h2>Gallery</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{% static 'images/blog1.jpg' %}" alt="Gallery Image 1">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/blog2.jpg' %}" alt="Gallery Image 2">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'images/blog4.jpg' %}" alt="Gallery Image 3">
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+    <div class="stat-item">
+        <h3>Happy Clients</h3>
+        <span>500+</span>
+    </div>
+    <div class="stat-item">
+        <h3>Classes Per Week</h3>
+        <span>50+</span>
+    </div>
+    <div class="stat-item">
+        <h3>Experienced Trainers</h3>
+        <span>20+</span>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer>
+    <div class="text-center">
+        <p>&copy; 2024 Gym Management System. All rights reserved.</p>
+    </div>
+</footer>
+
+{% endblock %}

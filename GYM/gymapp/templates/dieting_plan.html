@@ -1,0 +1,61 @@
+<!-- dieting_plan.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .dieting-plans-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dieting-plans-container ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .dieting-plans-container li {
+        background-color: #f0f8ff;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-left: 5px solid #4CAF50;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column; /* Stack content vertically */
+        overflow-wrap: break-word; /* Wrap long words */
+        white-space: normal; /* Allow wrapping */
+    }
+
+    .dieting-plans-container li span {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .no-plans {
+        text-align: center;
+        color: #777;
+        font-style: italic;
+    }
+</style>
+
+
+<div class="dieting-plans-container">
+    <h2>Your Dieting Plans</h2>
+
+    <ul>
+        {% for plan in dieting_plans %}
+            <li>
+                <span>{{ plan.date }}</span>: {{ plan.plan_details }}
+            </li>
+        {% empty %}
+            <li class="no-plans">No dieting plans available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+    <style>
+        /* Feedback Container */
+        body {
+            background-image: url("{% static 'images/back1.jpg' %}"); /* Replace with your background image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .feedback-container {
+            
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Feedback Form */
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease;
+        }
+        .feedback-form textarea, .feedback-form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+        .feedback-form textarea:focus, .feedback-form input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+        .feedback-form button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .feedback-form button:hover {
+            background-color: #45a049;
+        }
+
+        /* Chat Box */
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* Chat Message Styles */
+        .chat-message {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            position: relative;
+            animation: slideIn 0.5s ease;
+            margin-bottom: 5px;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #e6f7ff;
+            color: #333;
+            border: 1px solid #a0d1f2;
+        }
+        .admin-message {
+            align-self: flex-start;
+            background-color: #f1f1f1;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        /* Message Bubble Arrow */
+        .chat-message::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .user-message::after {
+            right: -10px;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #e6f7ff;
+        }
+        .admin-message::after {
+            left: -10px;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #f1f1f1 transparent transparent;
+        }
+
+        /* Meta Info */
+        .message-meta {
+            font-size: 0.8em;
+            color: #777;
+            position: absolute;
+            bottom: -20px;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .chat-message:hover .message-meta {
+            opacity: 1;
+        }
+        .admin-message .message-meta {
+            left: 10px;
+            right: auto;
+        }
+
+        /* Chatbox Scrollbar */
+        .chat-box::-webkit-scrollbar {
+            width: 5px;
+        }
+        .chat-box::-webkit-scrollbar-thumb {
+            background-color: #a0d1f2;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <h2>Submit Feedback</h2>
+        <form method="post" class="feedback-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+        </form>
+
+        <h2>Your Feedback</h2>
+        <div class="chat-box">
+            {% for feedback in feedbacks %}
+                <div class="chat-message user-message">
+                    <p>{{ feedback.message }}</p>
+                    <span class="message-meta">You</span>
+                </div>
+                {% if feedback.admin_reply %}
+                    <div class="chat-message admin-message">
+                        <p>{{ feedback.admin_reply }}</p>
+                        <span class="message-meta">Admin</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
+

@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+<style>
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f8fc;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Table Styling */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.styled-table thead tr {
+    background-color: #4CAF50;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.styled-table th, .styled-table td {
+    padding: 14px 20px;
+    text-align: left;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    transition: background-color 0.3s ease;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #e0f7e0; /* Light green hover */
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #4CAF50;
+}
+
+/* Section Styling */
+.meal-section {
+    margin-top: 40px;
+}
+
+.meal-section h3 {
+    color: #4CAF50;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4CAF50; /* Underline effect */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .styled-table, .styled-table thead, .styled-table tbody, .styled-table th, .styled-table td, .styled-table tr {
+        display: block;
+    }
+
+    .styled-table tr {
+        margin-bottom: 15px;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 10px;
+        text-align: right;
+        position: relative;
+    }
+
+    .styled-table th::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+    }
+}
+</style>
+<h2 style="text-align: center; color: #333; font-family: 'Arial', sans-serif;">Your Nuetriton Plans</h2>
+<div class="container">
+    <div class="meal-section">
+        <h3>Breakfast</h3>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Meal Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plan in breakfast_plans %}
+                    <tr>
+                        <td>{{ plan.date }}</td>
+                        <td>{{ plan.meal_plan }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No breakfast plans available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="meal-section">
+        <h3>Lunch</h3>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Meal Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plan in lunch_plans %}
+                    <tr>
+                        <td>{{ plan.date }}</td>
+                        <td>{{ plan.meal_plan }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No lunch plans available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="meal-section">
+        <h3>Dinner</h3>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Meal Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plan in dinner_plans %}
+                    <tr>
+                        <td>{{ plan.date }}</td>
+                        <td>{{ plan.meal_plan }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No dinner plans available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

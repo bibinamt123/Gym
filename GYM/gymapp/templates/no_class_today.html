@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Class Today</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .booking-details h3 {
+            color: #4CAF50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .booking-details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .booking-details li {
+            text-align: left;
+            color: #333;
+            font-size: 1em;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 4px solid #4CAF50;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>No Class Scheduled for Today</h1>
+        <p>It looks like there are no classes scheduled for today with your trainer.</p>
+
+        <div class="booking-details">
+            <h3>Your Booking Details:</h3>
+            <ul>
+                <li><strong>Course:</strong> {{ booking.course.name }}</li>
+                <li><strong>Trainer:</strong> {{ booking.trainer.name }}</li>
+                <li><strong>Time Slot:</strong> {{ booking.timeslot.start_time }} - {{ booking.timeslot.end_time }}</li>
+            </ul>
+        </div>
+
+        <p>Please check back later or contact support if you believe this is an error.</p>
+
+        <a href="{% url 'home' %}" class="btn">Return to Home</a>
+    </div>
+</body>
+</html>

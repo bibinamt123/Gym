@@ -1,0 +1,7 @@
+<h2>All Feedback</h2>
+{% for feedback in feedbacks %}
+    <p><strong>User:</strong> {{ feedback.user.username }}</p>
+    <p><strong>Message:</strong> {{ feedback.message }}</p>
+    <p><strong>Admin Reply:</strong> {{ feedback.admin_reply|default:"No reply yet" }}</p>
+    <hr>
+{% endfor %}

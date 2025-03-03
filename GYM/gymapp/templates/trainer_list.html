@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+    <style>
+        body {
+            background-image: url("{% static 'images/back1.jpg' %}"); 
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .trainer-container {
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 1200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px auto; /* Center the container horizontally */
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap to the next line */
+            justify-content: center; /* Center items in the flex container */
+            align-items: center; /* Center items vertically */
+            gap: 20px; /* Space between cards */
+            height: calc(100vh - 100px); /* Adjust height as needed, accounting for header/footer */
+        }
+
+        .trainer-card {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px; /* Set a fixed width for cards */
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .trainer-card img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 3px solid #28a745; /* Green border around the image */
+            margin-bottom: 15px;
+        }
+
+        .trainer-card h3 {
+            font-size: 1.5em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .trainer-card p {
+            color: #666;
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        .trainer-card a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .trainer-card a:hover {
+            background-color: #218838;
+        }
+
+        h2 {
+            text-align: center;
+            color: white; /* Heading color */
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <h2>Select a Trainer</h2>
+
+    <div class="trainer-container">
+        {% for trainer in trainers %}
+        <div class="trainer-card">
+            <img src="{{ trainer.photo.url }}" alt="{{ trainer.name }}" />
+            <h3>{{ trainer.name }}</h3>
+            <p>Age: {{ trainer.age }}</p>
+            <p>Category: {{ trainer.category }}</p>
+            <a href="{% url 'timeslot_list' trainer.id %}">Choose Trainer</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

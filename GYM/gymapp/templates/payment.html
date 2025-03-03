@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-image: url("{% static 'images/back1.jpg' %}"); /* Add your image URL here */
+        background-size: cover; /* Ensures the image covers the entire background */
+        background-position: center; /* Centers the background image */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .payment-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .payment-form script {
+        border: none;
+        background-color: #28a745; /* Green button */
+        color: rgb(11, 228, 3);
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      .payment-form input[type="hidden"] {
+        display: none;
+      }
+
+      .course-details {
+        margin-bottom: 10px;
+        color: #555;
+      }
+
+      .razorpay-button {
+        margin-top: 20px;
+        background-color: #28a745;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          width: 90%;
+          padding: 15px;
+        }
+
+        h2 {
+          font-size: 1.2rem;
+        }
+
+        .payment-form script {
+          font-size: 16px;
+          padding: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Pay {{ amount }} INR for the {{ booking.course.duration }} course</h2>
+      <div class="course-details">
+        <p>Course Duration: {{ booking.course.duration }}</p>
+      </div>
+
+      <form
+        class="payment-form"
+        action="{% url 'payment_callback' %}"
+        method="POST"
+      >
+        {% csrf_token %}
+        <script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          data-key="{{ razorpay_key_id }}"
+          data-amount="{{ payment.amount }}"
+          data-currency="INR"
+          data-order_id="{{ payment.id }}"
+          data-buttontext="Pay {{ amount }} INR"
+          data-name="Gym Management"
+          data-description="Course: {{ booking.course.duration }}"
+          data-prefill.name="{{ request.user.username }}"
+          data-prefill.email="{{ request.user.email }}"
+          data-theme.color="#28a745"
+        ></script>
+        <input type="hidden" name="booking_id" value="{{ booking.id }}" />
+      </form>
+    </div>
+  </body>
+</html>
